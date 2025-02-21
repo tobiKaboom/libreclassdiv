@@ -47,7 +47,7 @@ int evaulatecompatibility(char carr1[], char carr2[], char carr3[], char carr4[]
 			compatcase = 99;
 	}
 
-	return compatcase;
+	return compatcase; // The compatibility cases are: 0 (year 1 and year 3 will be inalternate days in the main and side building), 1 (year 1 and year 4 will be in alternate days in the main and side building), 2 (same as 0) and 99 (the classes are incompatible).
 }
 
 int main() {
