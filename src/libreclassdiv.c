@@ -59,11 +59,11 @@ int main() {
 	int maincroom[(MAINCROOM + 1)];
 	int sidecroom[(SIDECROOM + 1)];
 	int i;
-	char year1[] = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'};
-	char year2[] = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'};
-	char year3[] = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'};
-	char year4[] = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'};
-	char year5[] = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'};
+	char year1[] = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'}; //Year 1 classes.
+	char year2[] = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'}; //Year 2 classes.
+	char year3[] = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'}; //Year 3 classes.
+	char year4[] = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'}; //Year 4 classes.
+	char year5[] = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'}; //Year 5 classes.
 	int sc1 = sizeof(year1);
 	int sc2 = sizeof(year2);
 	int sc3 = sizeof(year3);
@@ -90,7 +90,7 @@ int main() {
 			printf("Your classes are compatible with the algorithm! Proceeding with class distribution.\n");
 			break;
 		default:
-			printf("How did you get here.\n");
+			printf("How did you get here.\n"); //Prints only if evaluatecompatibility returns an invalid compatcase.
 			break;
 	}
 
