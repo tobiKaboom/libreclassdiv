@@ -8,3 +8,5 @@ If you like this project and have any ideas on how to improve it, open an issue 
 If you have concrete solutions, open a pull request.
 
 Thanks!
+
+proudly written in vim =) 
