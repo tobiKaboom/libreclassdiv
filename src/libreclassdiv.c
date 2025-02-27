@@ -1,15 +1,22 @@
-#include <stdio.h>#include <stdio.h>
+
+/*Original author: tobiKaboom on GitHub and GitLab.
+ *This code is licensed under the Creative Commons Attribution
+ *Same Agreement 4.0 License.
+ *
+ * THIS COMMENT MUST BE INCLUDED WITH EVERY DERIVATIVE WORK. */
+
+#include <stdio.h>
 #include "libreclassdivconf.h"
 
 int ocroommain = 0;
 
-int evaluatecompatibility(int sc1, int sc2, int sc3, int sc4, int sc5) {
+int evaluatecompatibility(int sc1, int sc2, int sc3, int sc4, int sc5) { // Evaluates compatibility with your classes and the amount of classrooms.
 	char compatcase;
 
 	if (SIDECROOM + MAINCROOM < sc1 + sc2 + sc3 + sc4 + sc5) // If there are more classes than classrooms, it's incompatible.
 		compatcase = 99;
 
-	if ((sc1 + sc3 <= SIDECROOM && sc1 + sc3 <= (MAINCROOM - sc5)) && (sc1 + sc4 <= SIDECROOM) && (sc1 + sc4 <= (MAINCROOM - sc5))) 
+	if ((sc1 + sc3 <= SIDECROOM && sc1 + sc3 <= (MAINCROOM - sc5)) && (sc1 + sc4 <= SIDECROOM) && (sc1 + sc4 <= (MAINCROOM - sc5))) // Check which classes can be in the same building.
 		compatcase = 0;
 	else if (sc1 + sc3 <= SIDECROOM && sc1 + sc3 <= (MAINCROOM - sc5))
 		compatcase = 1;
@@ -19,7 +26,7 @@ int evaluatecompatibility(int sc1, int sc2, int sc3, int sc4, int sc5) {
 		compatcase = 99;
 	}
 	
-	if (compatcase == 0) {
+	if (compatcase == 0) { // Continuation of the if-else clause from earlier.
 		if ((sc2 + sc3 <= SIDECROOM && sc2 + sc3 <= (MAINCROOM - sc5) && (sc2 + sc4 <= SIDECROOM && sc2 + sc4 <= (MAINCROOM - sc5))))
 			compatcase = 0;
 		else if (sc2 + sc3 <= SIDECROOM && sc2 + sc3 <= (MAINCROOM - sc5))
@@ -27,7 +34,7 @@ int evaluatecompatibility(int sc1, int sc2, int sc3, int sc4, int sc5) {
 		else if (sc2 + sc4 <= SIDECROOM && sc2 + sc4 <= (MAINCROOM - sc5))
 			compatcase = 1;
 		else
-			compatcase = 99;
+			compatcase = 99; 
 
 	} else if (compatcase == 1) {
 		if (sc2 + sc4 <= SIDECROOM && sc2 + sc4 <= (MAINCROOM - sc5))
@@ -45,21 +52,22 @@ int evaluatecompatibility(int sc1, int sc2, int sc3, int sc4, int sc5) {
 
 }
 
-int assignclassyear5(char sec5[], int sc5, int maincroom[], int maincroomsize) {
+int assignclassyear5(char sec5[], int sc5, int maincroom[], int maincroomsize) { // Assigns classrooms to the fifth year classes.
 	printf("All week:");
 	for (ocroommain = 0; ocroommain < sc5; ocroommain++) {
 		printf(" 5%c in M%d,", sec5[ocroommain], maincroom[ocroommain]);
 	}
 	printf("\n\n");
 
-	ocroommain = sc5; //The occupied classrooms are gonna be the same as the amount of classes in them.
+	ocroommain = sc5;
 }
 
-int assignclassc1(char sec1[], int sec1size, char sec2[], int sec2size, char sec3[], int sec3size, char sec4[], int sec4size, int maincroom[], int sidecroom[]) {
+int assignclassc1(char sec1[], int sec1size, char sec2[], int sec2size, char sec3[], int sec3size, char sec4[], int sec4size, int maincroom[], int sidecroom[]) { // Assigns clasrooms to every other years' classes if the compatibility case is 1.
 	int maxclass;
 	int i;
+	int ocroomside = 0;
 
-	if (sec1size > sec3size)
+	if (sec1size > sec4size)
 		maxclass = sec4size;
 	else
 		maxclass = sec1size;
@@ -73,6 +81,59 @@ int assignclassc1(char sec1[], int sec1size, char sec2[], int sec2size, char sec
 
 	}
 
+	ocroommain = ocroommain + i;
+	ocroomside = ocroomside + i;
+
+	if (sec2size > sec3size)
+		maxclass = sec3size;
+	else
+		maxclass = sec2size;
+
+	for (i = 0; i < maxclass; i++) {
+		printf("Monday: 3^%c in classroom M%d and 2^%c in S%d\n", sec3[i], maincroom[ocroommain + i], sec2[i], sidecroom[ocroomside + i]);
+		printf("Tuesday: 2^%c in classroom M%d and 3^%c in S%d\n", sec2[i], maincroom[ocroommain + i], sec3[i], sidecroom[ocroomside + i]);
+		printf("Wednesday: 3^%c in classroom M%d and 2^%c in S%d\n", sec3[i], maincroom[ocroommain + i], sec2[i], sidecroom[ocroomside + i]);
+		printf("Thursday: 2^%c in classroom M%d and 3^%c in S%d\n", sec2[i], maincroom[ocroommain + i], sec3[i], sidecroom[ocroomside + i]);
+		printf("Friday: 3^%c in classroom M%d and 2^%c in S%d\n\n", sec3[i], maincroom[ocroommain + i], sec2[i], sidecroom[ocroomside + i]);
+
+	}
+}
+
+int assignclassc2(char sec1[], int sec1size, char sec2[], int sec2size, char sec3[], int sec3size, char sec4[], int sec4size, int maincroom[], int sidecroom[]) { // Assigns classrooms to every other years' classes if the compatibility case is 2 or 0.
+	int maxclass;
+	int i;
+	int ocroomside = 0;
+
+	if (sec1size > sec3size)
+		maxclass = sec3size;
+	else
+		maxclass = sec1size;
+
+	for (i = 0; i < maxclass; i++) {
+		printf("Monday: 3^%c in classroom M%d and 1^%c in S%d\n", sec3[i], maincroom[ocroommain + i], sec1[i], sidecroom[i]);
+		printf("Tuesday: 1^%c in classroom M%d and 3^%c in S%d\n", sec1[i], maincroom[ocroommain + i], sec3[i], sidecroom[i]);
+		printf("Wednesday: 3^%c in classroom M%d and 1^%c in S%d\n", sec3[i], maincroom[ocroommain + i], sec1[i], sidecroom[i]);
+		printf("Thursday: 1^%c in classroom M%d and 3^%c in S%d\n", sec1[i], maincroom[ocroommain + i], sec3[i], sidecroom[i]);
+		printf("Friday: 3^%c in classroom M%d and 1^%c in S%d\n\n", sec3[i], maincroom[ocroommain + i], sec1[i], sidecroom[i]);
+
+	}
+
+	ocroommain = ocroommain + i;
+	ocroomside = ocroomside + i;
+
+	if (sec2size > sec4size)
+		maxclass = sec4size;
+	else
+		maxclass = sec2size;
+
+	for (i = 0; i < maxclass; i++) {
+		printf("Monday: 4^%c in classroom M%d and 2^%c in S%d\n", sec4[i], maincroom[ocroommain + i], sec2[i], sidecroom[ocroomside + i]);
+		printf("Tuesday: 2^%c in classroom M%d and 4^%c in S%d\n", sec2[i], maincroom[ocroommain + i], sec4[i], sidecroom[ocroomside + i]);
+		printf("Wednesday: 4^%c in classroom M%d and 2^%c in S%d\n", sec3[i], maincroom[ocroommain + i], sec2[i], sidecroom[ocroomside + i]);
+		printf("Thursday: 2^%c in classroom M%d and 3^%c in S%d\n", sec2[i], maincroom[ocroommain + i], sec4[i], sidecroom[ocroomside + i]);
+		printf("Friday: 4^%c in classroom M%d and 4^%c in S%d\n\n", sec3[i], maincroom[ocroommain + i], sec2[i], sidecroom[ocroomside + i]);
+
+	}
 }
 
 int main() {
@@ -84,7 +145,7 @@ int main() {
 	char year3[] = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'}; //Year 3 classes.
 	char year4[] = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'}; //Year 4 classes.
 	char year5[] = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'}; //Year 5 classes.
-	int sc1 = sizeof(year1) / sizeof(year1[0]); //Finds the true size of the array (same with the ones below)
+	int sc1 = sizeof(year1) / sizeof(year1[0]);
         int sc2 = sizeof(year2) / sizeof(year2[0]);
 	int sc3 = sizeof(year3) / sizeof(year3[0]);
 	int sc4 = sizeof(year4) / sizeof(year4[0]);
@@ -104,16 +165,17 @@ int main() {
 			break;
 		case 1:
 			printf("Your classes are compatible with the algorithm! Proceeding with class distribution.\n\n");
+			assignclassyear5(year5, sc5, maincroom, n_maincroom);
+			assignclassc1(year1, sc1, year2, sc2, year3, sc3, year4, sc4, maincroom, sidecroom);
 			break;
 		case 2:
 			printf("Your classes are compatible with the algorithm! Proceeding with class distribution.\n\n");
+			assignclassyear5(year5, sc5, maincroom, n_maincroom);
+			assignclassc2(year1, sc1, year2, sc2, year3, sc3, year4, sc4, maincroom, sidecroom);
 			break;
 		default:
 			printf("How did you get here.\n"); //Prints only if evaluatecompatibility returns an invalid compatcase.
 			break;
-	}
-
-}
 	}
 
 }
