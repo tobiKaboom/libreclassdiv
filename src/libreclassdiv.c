@@ -66,21 +66,20 @@ int assignclassyear5(char sec5[], int sc5, int maincroom[], int maincroomsize) {
 int assignclassc1(char sec1[], int sec1size, char sec2[], int sec2size, char sec3[], int sec3size, char sec4[], int sec4size, int maincroom[], int sidecroom[]) { // Assigns clasrooms to every other years' classes if the compatibility case is 1.
 	int maxclass;
 	int i;
-	char remclass1[256];
 	int remclass1size;
-	char remclass2[256];
 	int remclass2size;
+	char compatcase;
 
 	// Distribution of classes in year 1 and 4.
 
 	if (sec1size > sec4size) {
 		maxclass = sec4size;
-		remclass1 = sec4;
-		remclass1size = maxclass
+		remclass1size = maxclass;
+		compatcase = 1;
 	} else if (sec1size < sec4size) {
 		maxclass = sec1size;
-		remclass1 = sec1;
-		remclass1size = maxclass
+		remclass1size = maxclass;
+		compatcase = 2;
 	} else
 		maxclass = sec1size;
 
@@ -100,12 +99,18 @@ int assignclassc1(char sec1[], int sec1size, char sec2[], int sec2size, char sec
 
 	if (sec2size > sec3size) {
 		maxclass = sec3size;
-		remclass2 = sec3;
 		remclass2size = maxclass;
+		if (compatcase = 1)
+			compatcase = 3;
+		else if (compatcase = 2)
+			compatcase = 4;
 	} else if (sec2size < sec3size) {
 		maxclass = sec2size;
-		remclass2 = sec2;
 		remclass2size = maxclass;
+		if (compatcase = 1)
+			compatcase = 5;
+		else if (compatcase = 2)
+			compatcase = 6;
 	} else 
 		maxclass = sec2size;
 
@@ -121,18 +126,20 @@ int assignclassc1(char sec1[], int sec1size, char sec2[], int sec2size, char sec
 	ocroommain = ocroommain + i;
 	ocroomside = ocroomside + i;
 
-	if (remclass1size > sec3size) {
-		maxclass = sec3size;
-		remclass2 = sec3;
-		remclassnum2 = maxclass;
-	} else if (sec2size < sec3size) {
-		maxclass = sec2size;
-		remclass2 = sec2;
-		remclassnum2 = maxclass;
-	} else 
-		maxclass = sec2size;
+	if (remclass1size > remclass2size)
+		maxclass = remclass2size;
+	else if (remclass1size < remclass2size) 
+		maxclass = remclass1size;
+	else 
+		maxclass = remclass2size;
 
-	for (i + 0; i < 
+	for (; i < maxclass; i++) {
+	      switch (compatcase) {
+		      case 3:
+		      	printf("Monday: 4^%c in classroom M%d and 3^%c in S%d\n", sec4[i], maincroom[ocroommain + i], sec3[i], sidecroom[ocroomside + i]);
+		      	
+		}
+	}
 }
 
 int assignclassc2(char sec1[], int sec1size, char sec2[], int sec2size, char sec3[], int sec3size, char sec4[], int sec4size, int maincroom[], int sidecroom[]) { // Assigns classrooms to every other years' classes if the compatibility case is 2 or 0.
