@@ -14,4 +14,4 @@ Fourth and third year should be 3 days out of 5 in the building with more classe
 Second and first year should be 2 days out of 5 in the main building.
 
 
-Written in vim :)
+proudly written in vim :)
