@@ -66,21 +66,14 @@ int assignclassyear5(char sec5[], int sc5, int maincroom[], int maincroomsize) {
 void assignclassc1(char sec1[], int sec1size, char sec2[], int sec2size, char sec3[], int sec3size, char sec4[], int sec4size, int maincroom[], int sidecroom[]) { // Assigns clasrooms to every other years' classes if the compatibility case is 1.
 	int maxclass;
 	int i;
-	int remclass1size;
-	int remclass2size;
-	char compatcase;
 
 	// Distribution of classes in year 1 and 4.
 
-	if (sec1size > sec4size) {
-		maxclass = sec4size;
-		remclass1size = maxclass;
-		compatcase = 1;
-	} else if (sec1size < sec4size) {
+	if (sec1size > sec4size) 
+		maxclass = sec4size
+	else if (sec1size < sec4size) 
 		maxclass = sec1size;
-		remclass1size = maxclass;
-		compatcase = 2;
-	} else
+	else
 		maxclass = sec1size;
 
 	for (i = 0; i < maxclass; i++) {
@@ -97,21 +90,11 @@ void assignclassc1(char sec1[], int sec1size, char sec2[], int sec2size, char se
 	ocroommain = ocroommain + i;
 	ocroomside = ocroomside + i;
 
-	if (sec2size > sec3size) {
+	if (sec2size > sec3size)
 		maxclass = sec3size;
-		remclass2size = maxclass;
-		if (compatcase == 1)
-			compatcase = 3;
-		else if (compatcase == 2)
-			compatcase = 4;
-	} else if (sec2size < sec3size) {
+	else if (sec2size < sec3size)
 		maxclass = sec2size;
-		remclass2size = maxclass;
-		if (compatcase == 1)
-			compatcase = 5;
-		else if (compatcase == 2)
-			compatcase = 6;
-	} else 
+	else 
 		maxclass = sec2size;
 
 	for (i = 0; i < maxclass; i++) {
@@ -121,49 +104,6 @@ void assignclassc1(char sec1[], int sec1size, char sec2[], int sec2size, char se
 		printf("Thursday: 2^%c in classroom M%d and 3^%c in S%d\n", sec2[i], maincroom[ocroommain + i], sec3[i], sidecroom[ocroomside + i]);
 		printf("Friday: 2^%c in classroom M%d and 3^%c in S%d\n\n", sec1[i], maincroom[ocroommain + i], sec3[i], sidecroom[ocroomside + i]);
 
-	}
-
-	ocroommain = ocroommain + i;
-	ocroomside = ocroomside + i;
-
-	if (remclass1size > remclass2size)
-		maxclass = remclass2size;
-	else if (remclass1size < remclass2size) 
-		maxclass = remclass1size;
-	else 
-		maxclass = remclass2size;
-
-	for (; i < maxclass; i++) {
-	     switch (compatcase) {
-		     case 3:
-			printf("Monday: 4^%c in classroom M%d and 3^%c in S%d\n", sec4[i], maincroom[ocroommain + i], sec3[i], sidecroom[ocroomside + i]);
-		     	printf("Tuesday: 4^%c in classroom M%d and 3^%c in S%d\n", sec4[i], maincroom[ocroommain + i], sec3[i], sidecroom[ocroomside + i]);
-		     	printf("Wednesday: 4^%c in classroom M%d and 3^%c in S%d\n", sec4[i], maincroom[ocroommain + i], sec3[i], sidecroom[ocroomside + i]);
-			printf("Thursday: 3^%c in classroom M%d and 4^%c in S%d\n", sec3[i], maincroom[ocroommain + i], sec4[i], sidecroom[ocroomside + i]);
-			printf("Friday: 3^%c in classroom M%d and 4^%c in S%d\n", sec3[i], maincroom[ocroommain + i], sec4[i], sidecroom[ocroomside + i]);
-			break;
-		     case 4:
-			printf("Monday: 3^%c in classroom M%d and 1^%c in S%d\n", sec3[i], maincroom[ocroommain + i], sec1[i], sidecroom[ocroomside + i]);
-		     	printf("Tuesday: 3^%c in classroom M%d and 1^%c in S%d\n", sec3[i], maincroom[ocroommain + i], sec1[i], sidecroom[ocroomside + i]);
-		     	printf("Wednesday: 3^%c in classroom M%d and 1^%c in S%d\n", sec3[i], maincroom[ocroommain + i], sec1[i], sidecroom[ocroomside + i]);
-			printf("Thursday: 1^%c in classroom M%d and 3^%c in S%d\n", sec1[i], maincroom[ocroommain + i], sec3[i], sidecroom[ocroomside + i]);
-			printf("Friday: 1^%c in classroom M%d and 3^%c in S%d\n", sec1[i], maincroom[ocroommain + i], sec3[i], sidecroom[ocroomside + i]);
-			break;
-		     case 5:
-			printf("Monday: 4^%c in classroom M%d and 4^%c in S%d\n", sec4[i], maincroom[ocroommain + i], sec2[i], sidecroom[ocroomside + i]);
-		     	printf("Tuesday: 4^%c in classroom M%d and 4^%c in S%d\n", sec4[i], maincroom[ocroommain + i], sec2[i], sidecroom[ocroomside + i]);
-		     	printf("Wednesday: 4^%c in classroom M%d and 4^%c in S%d\n", sec4[i], maincroom[ocroommain + i], sec2[i], sidecroom[ocroomside + i]);
-			printf("Thursday: 2^%c in classroom M%d and 2^%c in S%d\n", sec2[i], maincroom[ocroommain + i], sec4[i], sidecroom[ocroomside + i]);
-			printf("Friday: 2^%c in classroom M%d and 2^%c in S%d\n", sec2[i], maincroom[ocroommain + i], sec4[i], sidecroom[ocroomside + i]);
-			break;
-		     case 6:
-			printf("Monday: 2^%c in classroom M%d and 1^%c in S%d\n", sec2[i], maincroom[ocroommain + i], sec1[i], sidecroom[ocroomside + i]);
-		     	printf("Tuesday: 2^%c in classroom M%d and 1^%c in S%d\n", sec2[i], maincroom[ocroommain + i], sec1[i], sidecroom[ocroomside + i]);
-		     	printf("Wednesday: 2^%c in classroom M%d and 1^%c in S%d\n", sec2[i], maincroom[ocroommain + i], sec1[i], sidecroom[ocroomside + i]);
-			printf("Thursday: 1^%c in classroom M%d and 2^%c in S%d\n", sec1[i], maincroom[ocroommain + i], sec2[i], sidecroom[ocroomside + i]);
-			printf("Friday: 1^%c in classroom M%d and 2^%c in S%d\n", sec1[i], maincroom[ocroommain + i], sec2[i], sidecroom[ocroomside + i]);
-			break;
-		}
 	}
 }
 
