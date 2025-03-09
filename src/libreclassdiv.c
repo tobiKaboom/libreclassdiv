@@ -6,44 +6,43 @@
  * THIS COMMENT MUST BE INCLUDED WITH EVERY DERIVATIVE WORK. */
 
 #include <stdio.h>
-#include "libreclassdivconf.h"
 
 int ocroommain = 0;
 int ocroomside = 0;
 
-int evaluatecompatibility(int sc1, int sc2, int sc3, int sc4, int sc5) { // Evaluates compatibility with your classes and the amount of classrooms.
+int evaluatecompatibility(int n_maincroom, int n_sidecroom, int sc1, int sc2, int sc3, int sc4, int sc5) { // Evaluates compatibility with your classes and the amount of classrooms.
 	char compatcase;
 
-	if (SIDECROOM + MAINCROOM < sc1 + sc2 + sc3 + sc4 + sc5) // If there are more classes than classrooms, it's incompatible.
+	if (n_sidecroom + n_maincroom < sc1 + sc2 + sc3 + sc4 + sc5) // If there are more classes than classrooms, it's incompatible.
 		compatcase = 99;
 
-	if ((sc1 + sc3 <= SIDECROOM && sc1 + sc3 <= (MAINCROOM - sc5)) && (sc1 + sc4 <= SIDECROOM) && (sc1 + sc4 <= (MAINCROOM - sc5))) // Check which classes can be in the same building.
+	if ((sc1 + sc3 <= n_sidecroom && sc1 + sc3 <= (n_maincroom - sc5)) && (sc1 + sc4 <= n_sidecroom && (sc1 + sc4 <= (n_maincroom - sc5))) // Check which classes can be in the same building.
 		compatcase = 0;
-	else if (sc1 + sc3 <= SIDECROOM && sc1 + sc3 <= (MAINCROOM - sc5))
+	else if (sc1 + sc3 <= n_sidecroom && sc1 + sc3 <= (n_maincroom - sc5))
 		compatcase = 1;
-	else if (sc1 + sc4 <= SIDECROOM && sc1 + sc4 <= (MAINCROOM - sc5))
+	else if (sc1 + sc4 <= n_sidecroom && sc1 + sc4 <= (n_maincroom - sc5))
 		compatcase = 2;
 	else {
 		compatcase = 99;
 	}
 	
 	if (compatcase == 0) { // Continuation of the if-else clause from earlier.
-		if ((sc2 + sc3 <= SIDECROOM && sc2 + sc3 <= (MAINCROOM - sc5) && (sc2 + sc4 <= SIDECROOM && sc2 + sc4 <= (MAINCROOM - sc5))))
+		if ((sc2 + sc3 <= n_sidecroom && sc2 + sc3 <= (n_maincroom - sc5) && (sc2 + sc4 <= n_sidecroom && sc2 + sc4 <= (n_maincroom - sc5))))
 			compatcase = 0;
-		else if (sc2 + sc3 <= SIDECROOM && sc2 + sc3 <= (MAINCROOM - sc5))
+		else if (sc2 + sc3 <= n_sidecroom && sc2 + sc3 <= (n_maincroom - sc5))
 			compatcase = 2;
-		else if (sc2 + sc4 <= SIDECROOM && sc2 + sc4 <= (MAINCROOM - sc5))
+		else if (sc2 + sc4 <= n_sidecroom && sc2 + sc4 <= (n_maincroom - sc5))
 			compatcase = 1;
 		else
 			compatcase = 99; 
 
 	} else if (compatcase == 1) {
-		if (sc2 + sc4 <= SIDECROOM && sc2 + sc4 <= (MAINCROOM - sc5))
+		if (sc2 + sc4 <= n_sidecroom && sc2 + sc4 <= (n_maincroom - sc5))
 			compatcase = 1;
 		else
 			compatcase = 99;
 	} else if (compatcase == 2) {
-		if (sc2 + sc3 <= SIDECROOM && sc2 + sc3 <= (MAINCROOM - sc5))
+		if (sc2 + sc3 <= n_sidecroom && sc2 + sc3 <= (n_maincroom - sc5))
 			compatcase = 2;
 		else
 			compatcase = 99;
@@ -164,7 +163,7 @@ int main() {
 	int n_maincroom = sizeof(maincroom) / sizeof(maincroom[0]);
 	int n_sidecroom = sizeof(sidecroom) / sizeof(sidecroom[0]);
 
-	int compatcase = evaluatecompatibility(sc1, sc2, sc3, sc4, sc5);
+	int compatcase = evaluatecompatibility(n_maincroom, n_sidecroom, sc1, sc2, sc3, sc4, sc5);
 	switch (compatcase) {
 		case 99:
 			printf("Your classes and classrooms are incompatible with this algorithm.\n\n");
