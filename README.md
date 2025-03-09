@@ -1,12 +1,17 @@
 ## libreclassdiv
-Made for schools in Italy, where often classrooms are divided over 2 different buildings. Usually one of the two building is in a worse condition than the other, and thus a class' schedule should be balanced between the main building and side building. Often, though, it's hard to balance everything by hand, and that's why I'm making this algorithm to hopefully make the distribution of classrooms more fair.
+Simple algorithm created for schools in Italy to provide the bases to distribute classes in classrooms over 2 different buildings.
 
-This algo is nearly done, but is still missing a couple of features. It will only work if there are more classroom than classes and several other criteria are met. Do not worry, you do not have to check them yourself, as the `evaluatecompatibility` function takes care of it for you.
+It essentially handles years in pairs and distributes the same amount of classes in every year in the pair, but can distribute different amount of classes between the 2 pairs of years.
 
-If you like this project and have any ideas on how to improve it, open an issue and I'll do my best.
+The rest is to be decided manually.
 
-If you have concrete solutions, open a pull request.
+The philosophy is this:
 
-Thanks!
+Fifth year should be in the same classroom all week to focus on final exams.
 
-proudly written in vim =) 
+Fourth and third year should be 3 days out of 5 in the building with more classes, which is usually the main building, and usually is generally better than the side one.
+
+Second and first year should be 2 days out of 5 in the main building.
+
+
+Written in vim :)
