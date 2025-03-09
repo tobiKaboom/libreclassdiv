@@ -1,2 +1,0 @@
-#define MAINCROOM 30
-#define SIDECROOM 20
