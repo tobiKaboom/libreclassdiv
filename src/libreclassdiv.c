@@ -100,9 +100,9 @@ void assignclassc1(char sec1[], int sec1size, char sec2[], int sec2size, char se
 	if (sec2size > sec3size) {
 		maxclass = sec3size;
 		remclass2size = maxclass;
-		if (compatcase = 1)
+		if (compatcase == 1)
 			compatcase = 3;
-		else if (compatcase = 2)
+		else if (compatcase == 2)
 			compatcase = 4;
 	} else if (sec2size < sec3size) {
 		maxclass = sec2size;
